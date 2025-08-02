@@ -1,16 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
-    <test verbose="2" preserve-order="true"
-          name="APIAutomationFrameworks">
-        <classes>
-            <class name="org.example.tests.sample.TestIntegrationSample">
-                <listeners>
-                    <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
-                </listeners>
-
-            </class>
-        </classes>
-
-    </test>
-</suite>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite"><test verbose="2" preserve-order="true" name="C:/Users/shiv/IdeaProjects/APIAutomationFrameworks/pom.xml"><classes/></test></suite>
