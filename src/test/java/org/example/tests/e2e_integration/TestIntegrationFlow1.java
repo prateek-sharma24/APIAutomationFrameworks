@@ -55,21 +55,57 @@ public class TestIntegrationFlow1 extends BaseTest {
         response =RestAssured.given(requestSpecification).when().get();
         validatableResponse =response.then().log().all();
         validatableResponse.statusCode(200);
+        Booking booking =payloadManager.getResponseFromJSON(response.asString());
+        assertActions.verifyStringKeyNotNull(booking.getFirstname());
 
     }
     @Test(groups = "qa" , priority =3)
     @Owner("Prateek Sharma")
     @Description("TC#INT3 -Step 3- Verify the Updated Booking by ID")
-    public void testUpdateBookingByID()
+    public void testUpdateBookingByID(ITestContext iTestContext)
     {
-        Assert.assertTrue(true);
+        Integer bookingid = (Integer) iTestContext.getAttribute("bookingid");
+        String token  =getToken();
+        iTestContext.setAttribute("token",token);
+
+
+        String basePathPUTPATCH =APIConstants.CREATE_UPDATE_BOOKING_URL+"/"+bookingid;
+        System.out.println(basePathPUTPATCH);
+
+        requestSpecification.basePath(basePathPUTPATCH);
+
+        response = RestAssured
+                .given(requestSpecification).cookie("token",token)
+                .when().body(payloadManager.fullUpdatePayloadAsString()).put();
+
+        validatableResponse =response.then().log().all();
+        //Validatable Assertion
+        validatableResponse.statusCode(200);
+
+        Booking booking =payloadManager.getResponseFromJSON(response.asString());
+        assertActions.verifyStringKeyNotNull(booking.getFirstname());
+        assertActions.verifyStringKey(booking.getFirstname(),"Prateek");
     }
-    @Test(groups = "qa" , priority = 3)
+    @Test(groups = "qa" , priority = 4)
     @Owner("Prateek Sharma")
     @Description("TC#INT4 -Step 4- Delete the Booking by ID")
-    public void testDeleteBookingByID()
+    public void testDeleteBookingByID(ITestContext iTestContext)
     {
-        Assert.assertTrue(true);
+        Integer bookingid =(Integer) iTestContext.getAttribute("bookingid");
+        String token =(String)iTestContext.getAttribute("token");
+        //If the token gets expired, in the running of test case then the below code can be used for regenration
+       // if(token.equalsIgnoreCase(null))
+       // {
+        //    token =getToken();
+       // }
+
+        String basePATHDelete =APIConstants.CREATE_UPDATE_BOOKING_URL+"/"+bookingid;
+
+        requestSpecification.basePath(basePATHDelete).header("Cookie", "token=" + token);
+
+        validatableResponse =RestAssured.given().spec(requestSpecification)
+                .when().delete().then().log().all();
+        validatableResponse.statusCode(201);
     }
 
 

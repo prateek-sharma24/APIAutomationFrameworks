@@ -109,5 +109,31 @@ public class PayloadManager {
         String jsonStringBooking =gson.toJson(booking);
         return jsonStringBooking;
     }
+    //Payload for getting Booking Class from GET Request
+     //Get request sends booking as a response not booking response
+    public Booking getResponseFromJSON(String getResponse)
+    {
+        gson =new Gson();
+        Booking booking =gson.fromJson(getResponse, Booking.class);
+        return booking;
+
+    }
+    //Payload for full updation request of bookingid
+    public String fullUpdatePayloadAsString()
+    {
+        Booking booking =new Booking();
+        booking.setFirstname("Prateek");
+        booking.setLastname("Sharma");
+        booking.setTotalprice(222);
+        booking.setDepositpaid(true);
+
+        Bookingdates bookingdates =new Bookingdates();
+        bookingdates.setCheckin("2025-08-25");
+        bookingdates.setCheckout("2025-08-29");
+        booking.setBookingdates(bookingdates);
+        booking.setAdditionalneeds("Breakfast");
+        return gson.toJson(booking);
+    }
+
 
 }

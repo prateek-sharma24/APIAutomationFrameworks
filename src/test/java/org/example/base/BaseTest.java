@@ -16,6 +16,7 @@ import org.testng.annotations.BeforeTest;
 public class BaseTest {
     //CommonToAll Testcase
     //  // Base URL, Content Type - json - common
+    //This file contains functions of request which need not to be manipulated
     public RequestSpecification requestSpecification;
     public AssertActions assertActions;
     public PayloadManager payloadManager;
@@ -39,6 +40,18 @@ public class BaseTest {
                 .setBaseUri(APIConstants.BASE_URL)
                 .addHeader("Content-Type","application/json")
                 .build().log().all();
+    }
+    public String getToken()
+    {
+        requestSpecification =RestAssured.given();
+        requestSpecification.baseUri(APIConstants.BASE_URL)
+                .basePath(APIConstants.AUTH_URL);
+        //Setting the payload
+        String payload = payloadManager.setAuthPayload();
+        //Get Token
+        response =requestSpecification.contentType(ContentType.JSON).body(payload).when().post();
+        String token =payloadManager.getTokenFromJSON(response.asString());
+        return token;
     }
     @AfterTest
     public void tearDown()
