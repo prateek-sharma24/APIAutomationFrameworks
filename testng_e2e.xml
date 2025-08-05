@@ -3,7 +3,7 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="APIAutomationFrameworks">
         <classes>
-            <class name="org.example.tests.sample.TestIntegrationSample"/>
+            <class name="org.example.tests.e2e_integration.TestIntegrationFlow1"/>
         </classes>
     </test>
 </suite>
