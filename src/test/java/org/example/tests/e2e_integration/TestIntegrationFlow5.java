@@ -15,7 +15,7 @@ public class TestIntegrationFlow5 extends BaseTest {
     // 1. Create Booking
     @Test(groups = "qa", priority = 0)
     @Owner("Prateek Sharma")
-    @Description("TC#INT5 - Step 1 - Create a Booking and Get Auth Token")
+    @Description("TC#INT1 - Step 1 - Create a Booking and Get Auth Token")
     public void testCreateBooking(ITestContext iTestContext) {
         requestSpecification.basePath(APIConstants.CREATE_UPDATE_BOOKING_URL);
 
@@ -39,7 +39,7 @@ public class TestIntegrationFlow5 extends BaseTest {
     // 2. Delete Booking
     @Test(groups = "qa", priority = 1)
     @Owner("Prateek Sharma")
-    @Description("TC#INT4 - Step 2 - Delete the Booking by ID")
+    @Description("TC#INT2 - Step 2 - Delete the Booking by ID")
     public void testDeleteBookingByID(ITestContext iTestContext) {
         Integer bookingid = (Integer) iTestContext.getAttribute("bookingid");
         String token = (String) iTestContext.getAttribute("token");
