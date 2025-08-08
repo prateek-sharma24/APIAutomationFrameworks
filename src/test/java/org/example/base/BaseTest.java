@@ -13,6 +13,8 @@ import org.example.modules.PayloadManager;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
+import java.util.List;
+
 public class BaseTest {
     //CommonToAll Testcase
     //  // Base URL, Content Type - json - common
@@ -52,6 +54,18 @@ public class BaseTest {
         response =requestSpecification.contentType(ContentType.JSON).body(payload).when().post();
         String token =payloadManager.getTokenFromJSON(response.asString());
         return token;
+    }
+    public Integer getBookingID()
+    {
+        requestSpecification =RestAssured.given();
+        requestSpecification.baseUri(APIConstants.BASE_URL)
+                .basePath(APIConstants.CREATE_UPDATE_BOOKING_URL);
+        response =requestSpecification.contentType(ContentType.JSON).when().get();
+        List<Integer> bookingIds =response.jsonPath().getList("bookingid");
+        Integer bookingId =bookingIds.get(1);
+        return bookingId;
+
+
     }
     @AfterTest
     public void tearDown()
